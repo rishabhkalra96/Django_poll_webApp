@@ -13,14 +13,21 @@
         <ul>
             <li>
                 <h2>
+                    <!--
                 <a href="/polls/{{ question_object.id }}">{{ question_object.question_text }}</a>
+                below is another way to write the above statement, using namespaces
+-->
+                <a href="{% url 'polls:detail_view' question_object.id %}">{{ question_object.question_text }}</a>
                 </h2>
             </li>
         </ul>
     {% endfor %}
+{% elif QUESTION_TEXT%}
+    <h3>The question text is : {{ QUESTION_TEXT}}</h3>
 {% else %}
-    <h1>No objects available</h1>
+    <h1>NO OBJECT AVAILABLE FOR ID {{ QUESTION_TEXT_ID  }}</h1>
 {% endif %}
+
 
 
 </body>

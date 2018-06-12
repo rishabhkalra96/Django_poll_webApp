@@ -9,32 +9,40 @@ from polls.models import Question
 def index(request):
     print("Rendered index")
     latest_question_list = Question.objects.order_by('-published_date')
-    #Required for creating a teplate render request
+# Required for creating a teplate render request
     template = loader.get_template('polls/index.html')
     context = {
-        'latest_question_list' : latest_question_list,
+        'latest_question_list': latest_question_list,
     }
     return render(request, 'polls/index.html', context)
-    #return HttpResponse(template.render(context,request))
+# return HttpResponse(template.render(context,request))
+
 
 def detail(request, question_id):
     print("Rendered detail")
-    #Another way to raise 404 errors
+# Another way to raise 404 errors
     question_text = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/index.html', {'QUESTION' :question_text })
-    #return HttpResponse("You are looking at question %s." % question_id)
+    return render(request, 'polls/index.html', {'QUESTION_TEXT': question_text, 'QUESTION_TEXT_ID ': question_id})
+
+# return HttpResponse("You are looking at question %s." % question_id)
+
 
 def results(request, question_id):
+
     response = "You are looking at the results of the question details %s."
     print("Rendered results")
     return HttpResponse(response % question_id)
 
+
 def vote(request, question_id):
+
     print("Rendered vote")
-    if question_id >= 5 :
+    if question_id >= 5:
+
         template = loader.get_template('polls/404Error.html')
-        return HttpResponseNotFound(template.render({},request))
+        return HttpResponseNotFound(template.render({}, request))
     return HttpResponse("You are voting on the question : %s." % Question.objects.get(pk=question_id))
+
 
 # This is the simplest view possible in Django. To call the view,
 # we need to map it to a URL - and for this we need a URLconf.
@@ -48,6 +56,6 @@ def vote(request, question_id):
 # text – "34/" – to the ‘polls.urls’ URLconf for further processing.
 # There it matches '<int:question_id>/', resulting in a call to the detail() view like so:
 
-#The render() function takes the request object as its ﬁrst argument,
+# The render() function takes the request object as its ﬁrst argument,
 # a template name as its second argument and a dictionary as its optional third argument.
 # It returns an HttpResponse object of the given template rendered with the given context.
