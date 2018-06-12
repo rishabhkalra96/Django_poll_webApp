@@ -1,4 +1,5 @@
 from django.http import HttpResponse, Http404, HttpResponseNotFound
+from django.shortcuts import render
 from django.template import loader
 
 
@@ -13,7 +14,8 @@ def index(request):
     context = {
         'latest_question_list' : latest_question_list,
     }
-    return HttpResponse(template.render(context,request))
+    return render(request, 'polls/index.html', context)
+    #return HttpResponse(template.render(context,request))
 
 def detail(request, question_id):
     print("Rendered detail")
@@ -26,8 +28,6 @@ def results(request, question_id):
 
 def vote(request, question_id):
     print("Rendered vote")
-    latest_question_list = Question.objects.order_by('-published_date')
-
     if question_id >= 5 :
         template = loader.get_template('polls/404Error.html')
         return HttpResponseNotFound(template.render({},request))
