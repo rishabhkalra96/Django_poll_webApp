@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404, HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 
 
@@ -19,7 +19,10 @@ def index(request):
 
 def detail(request, question_id):
     print("Rendered detail")
-    return HttpResponse("You are looking at question %s." % question_id)
+    #Another way to raise 404 errors
+    question_text = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/index.html', {'QUESTION' :question_text })
+    #return HttpResponse("You are looking at question %s." % question_id)
 
 def results(request, question_id):
     response = "You are looking at the results of the question details %s."
@@ -44,3 +47,7 @@ def vote(request, question_id):
 # it strips off the matching text ("polls/") and sends the remaining
 # text – "34/" – to the ‘polls.urls’ URLconf for further processing.
 # There it matches '<int:question_id>/', resulting in a call to the detail() view like so:
+
+#The render() function takes the request object as its ﬁrst argument,
+# a template name as its second argument and a dictionary as its optional third argument.
+# It returns an HttpResponse object of the given template rendered with the given context.

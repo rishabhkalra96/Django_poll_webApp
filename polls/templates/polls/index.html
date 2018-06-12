@@ -5,12 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<h1>This is the index file</h1>
+
 <h2>The data recieved from the context is </h2>
 {% if  latest_question_list %}
+    <h1>This is the index file</h1>
     {% for question_object in latest_question_list %}
         <ul>
-            <li>{{ question_object.published_date }} ----> {{ question_object.question_text }}</li>
+            <li>
+                <h2>
+                <a href="/polls/{{ question_object.id }}">{{ question_object.question_text }}</a>
+                </h2>
+            </li>
         </ul>
     {% endfor %}
 {% else %}
