@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>This is the index file</h1>
+<h2>The data recieved from the context is </h2>
+{% if  latest_question_list %}
+    {% for question_object in latest_question_list %}
+        <ul>
+            <li>{{ question_object.published_date }} ----> {{ question_object.question_text }}</li>
+        </ul>
+    {% endfor %}
+{% else %}
+    <h1>No objects available</h1>
+{% endif %}
+
+
+</body>
+</html>
