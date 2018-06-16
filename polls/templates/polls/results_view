@@ -1,0 +1,31 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+<body>
+    <h1 align="center">RESULTS!</h1><br>
+    <h1 align="center">{{ question.question_text }}</h1><br><br>
+
+<table align="center" cellspacing="10">
+<tr>
+    <th>NAME</th>
+    <th>NUMBER OF VOTES</th>
+</tr>
+    {% for choice in question.choice_set.all %}
+        <tr>
+        <td >
+        {{ choice.choice_text }}
+        </td>
+        <td align="center">{{ choice.votes }} vote{{ choice.votes|pluralize }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<br><br>
+<a href="{% url 'polls:detail_view' question.id %}" style="text-align: center" >
+    <center>Vote again?</center>
+</a>
+
+</body>
+</html>
