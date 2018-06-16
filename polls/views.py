@@ -20,10 +20,15 @@ def index(request):
 
 def detail(request, question_id):
     print("Rendered detail")
+    #The below line is same as
+    question = get_object_or_404(Question, pk=question_id)
+    #question = Question.objects.get(pk=question_id)
+    context = {'question': question}
+    return render(request, 'polls/detail.html',context )
 # Another way to raise 404 errors
-    question_text = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/index.html', {'QUESTION_TEXT': question_text, 'QUESTION_TEXT_ID ': question_id})
-
+#    question_text = get_object_or_404(Question, pk=question_id)
+#    return render(request, 'polls/detail.html', {'QUESTION_TEXT': question_text})
+#OR
 # return HttpResponse("You are looking at question %s." % question_id)
 
 
